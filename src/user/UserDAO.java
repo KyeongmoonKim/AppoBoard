@@ -1,4 +1,4 @@
-package java;
+package user;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;

@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>일정</title>
 
-<link rel="stylesheet" type="text/css" href="./coco/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="/AppoBoard//coco/semantic.min.css">
 
     <style type="text/css">
         body {
@@ -59,7 +59,7 @@
     </div>
     
     
-<script src="./coco/jquery3.3.1.min.js"></script>
+<script src="/AppoBoard/coco/jquery3.3.1.min.js"></script>
 <script type="text/javascript">
 function fn_validate(){	
     var frmLogin=document.frmLogin;

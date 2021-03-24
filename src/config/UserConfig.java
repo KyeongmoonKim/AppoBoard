@@ -1,5 +1,5 @@
 package config;
-import java.UserDAO;
+import user.*;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;

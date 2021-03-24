@@ -1,4 +1,4 @@
-package java;
+package user;
 
 public class UserVO {
 	private String userId;
