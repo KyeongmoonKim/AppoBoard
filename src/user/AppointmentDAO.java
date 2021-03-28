@@ -116,23 +116,16 @@ public class AppointmentDAO {
 			}
 		});
 	}
-	/*public void deleteAppo(String id) {
-		try {
-			con = dataFactory.getConnection();
-			int key = Integer.parseInt(id);
-			
-			String q = "UPDATE MYAPPOINTMENT SET ISDELETED=1 WHERE ID=?";
-			pstmt = con.prepareStatement(q);
-			pstmt.setInt(1,  key); //키 설정
-			
-			pstmt.executeUpdate();
-			
-			pstmt.close();
-			con.close();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	} */
+	public void deleteAppo(String id) {
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt = con.prepareStatement("UPDATE MYAPPOINTMENT SET ISDELETED=1 WHERE ID=?");
+				pstmt.setInt(1,  Integer.parseInt(id)); //키 설정
+				return pstmt;
+			}
+		});
+	} 
 }
 
 
