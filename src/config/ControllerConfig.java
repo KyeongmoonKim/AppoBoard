@@ -10,6 +10,7 @@ public class ControllerConfig {
 	}
 	@Bean
 	public SqlController sqctr() {
+		System.out.println("hi");
 		return new SqlController();
 	}
 }

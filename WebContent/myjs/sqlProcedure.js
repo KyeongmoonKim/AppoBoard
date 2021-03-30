@@ -17,6 +17,10 @@ function sqlProcedure() {
 		this.params[valuetemp] = value;
 		this.params[typetemp] = type;
 		this.count = this.count+1;
+		//test
+		console.write(key);
+		console.write(value);
+		console.write(type);
 	};
 	
 	this.asyncAjax = function(sqlReq, call_back) {//sqlReq는 스트링, call_back은 콜백함수
@@ -32,7 +36,7 @@ function sqlProcedure() {
 			json_data[key2] = this.params[key2];
 		}
 		$.ajax({
-	         url: '/AppoBoard/Appointment/today',
+	         url: '/AppoBoard/sql/test',
 	         dataType: 'json',
 	         data: json_data,
 	         type: 'post',
