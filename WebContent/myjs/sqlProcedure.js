@@ -34,9 +34,6 @@ function sqlProcedure() {
 			var key0 = 'key'+String(i);
 			var key1 = 'value'+String(i);
 			var key2 = 'type'+String(i);
-			//console.log(this.params['key0']);
-			//console.log(this.params['value0']);
-			//console.log(this.params['type0']);
 			json_data[key0] = this.params[key0];
 			json_data[key1] = this.params[key1];
 			json_data[key2] = this.params[key2];

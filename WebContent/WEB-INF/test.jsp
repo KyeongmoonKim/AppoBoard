@@ -7,7 +7,7 @@
 <script src="/AppoBoard/coco/jquery3.3.1.min.js"></script>
 <script type="text/javascript">
 var temp = new sqlProcedure(); //중요
-temp.addParams("명", "훈", "int");
+temp.addParams("mei", "hoon", "int");
 var call_back_temp = function() {
 	return;
 }
