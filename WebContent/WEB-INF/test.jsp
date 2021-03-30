@@ -5,7 +5,7 @@
 <head>
 <script src="/AppoBoard/myjs/sqlProcedure.js"></script>
 <script type="text/javascript">
-var temp = sqlProcedure();
+var temp = new sqlProcedure(); //중요
 temp.addParams("key", "value", "type");
 
 </script>
