@@ -8,4 +8,8 @@ public class ControllerConfig {
 	public UserController helloController() {
 		return new UserController();
 	}
+	@Bean
+	public SqlController sqctr() {
+		return new SqlController();
+	}
 }
