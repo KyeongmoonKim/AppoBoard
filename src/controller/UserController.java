@@ -17,6 +17,10 @@ public class UserController {
 	public String loginMain() {
 		return "login";
 	}
+	@GetMapping("/sql")
+	public String sqlMain() {
+		return "test";
+	}
 	@PostMapping("/user/login")
 	public String login(HttpServletRequest request) {
 		String id = request.getParameter("user_id");

@@ -9,6 +9,7 @@ document.getElementsByTagName('head')[0].appendChild(jquery_script);
 function sqlProcedure() {
 	this.params = new Object();
 	this.count = 0;
+	console.write("sqlProcedure made!");
 	this.addParams = function(key, value, type) {
 		var keytemp = 'key'+String(count);
 		var valuetemp = 'value'+String(count);
