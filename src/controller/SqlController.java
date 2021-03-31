@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 public class SqlController {
 	@PostMapping("/sql/test")
-	public Object spProcessor(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public List<Object> spProcessor(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8"); //중요
 		HashMap<String,String> map = new HashMap<String, String>();
 		String requestData = request.getReader().lines().collect(Collectors.joining());
@@ -40,7 +40,9 @@ public class SqlController {
 		temp.setId("kkm8031");
 		temp.setPwd("rudan93");
 		temp.setName("kkm");
-		return temp;		
+		ArrayList<UserVO> ret = new ArrayList<UserVO>();
+		ret.add(temp);
+		return (List)ret;		
 		//json return하는 방법 필요함 지금 제대로 리턴이 안됌. json 처리 해서 응답하는 것 추가할 것
 		//AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(UserConfig.class);
 		//UserDAO udao = ctx.getBean("userDao", UserDAO.class);

@@ -10,17 +10,17 @@ public class UserVO {
 		this.userPwd = null;
 		this.name = null;
 	}
-	
+	//매우중요 이거 잭슨쓰려면 getter만들때 엄격하게 ㅁ나들어줘야함. userId프로퍼티면 getUserId로
 	public void setId(String a) {
 		this.userId = a;
 	}
-	public String getId() {
+	public String getUserId() {
 		return this.userId;
 	}
 	public void setPwd(String a) {
 		this.userPwd = a;
 	}
-	public String getPwd() {
+	public String getUserPwd() {
 		return this.userPwd;
 	}
 	public void setName(String a) {

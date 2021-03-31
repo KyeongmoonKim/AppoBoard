@@ -46,6 +46,7 @@ function sqlProcedure() {
 	         success: function(ret) { // check if available
 	           //success
 	           call_back(ret);
+	           //console.log(ret['userId']);
 	         },
 	         error: function() { // error logging
 	           console.log('Error!');

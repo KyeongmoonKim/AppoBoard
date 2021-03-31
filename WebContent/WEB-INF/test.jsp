@@ -8,9 +8,11 @@
 <script type="text/javascript">
 var temp = new sqlProcedure(); //중요
 temp.addParams("date", "2021-03-07", "string");
-var call_back_temp = function(ret) {
-	for(var i in ret) {
-		console.log(ret[0]['userId']);
+function call_back_temp(lad) {
+	for(var i in lad) {//지금 return 값이 List<UserVO>임.
+		console.log(lad[i]['userId']);
+		console.log(lad[i]['userPwd']);
+		console.log(lad[i]['name']);
 	}
 	return;
 }

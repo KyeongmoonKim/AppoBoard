@@ -29,7 +29,7 @@ public class UserDAO {
 		//List<T> query(String sql, RowMapper<T> rowMapper, Object... args)
 		if(results.size()!=1) throw new LoginFailException("no such ID"); //해당되는 id가 없거나 여러개임.
 		UserVO temp = results.get(0); //하나니까 가져옴.
-		if(temp.getPwd().compareTo(pwd)!=0) throw new LoginFailException("pwd is wrong!");
+		if(temp.getUserPwd().compareTo(pwd)!=0) throw new LoginFailException("pwd is wrong!");
 	}
 	public boolean isDup(String id) {
 		List<UserVO> results = jdbcTemplate.query(
@@ -53,8 +53,8 @@ public class UserDAO {
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pstmt = con.prepareStatement("INSERT INTO MYUSER(USERID, USERPWD, NAME) VALUES (?, ?, ?)");
-				pstmt.setString(1, uvo.getId());
-				pstmt.setString(2, uvo.getPwd());
+				pstmt.setString(1, uvo.getUserId());
+				pstmt.setString(2, uvo.getUserPwd());
 				pstmt.setString(3, uvo.getName());
 				return pstmt;
 			}
