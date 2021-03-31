@@ -9,6 +9,8 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import user.*;
+import config.UserConfig;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 public class SqlController {
 	@PostMapping("/sql/test")
-	public String spProcessor(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public Object spProcessor(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8"); //중요
 		HashMap<String,String> map = new HashMap<String, String>();
 		String requestData = request.getReader().lines().collect(Collectors.joining());
@@ -33,7 +35,16 @@ public class SqlController {
 			System.out.println(map.get("value"+Integer.toString(i)));
 			System.out.println(map.get("type"+Integer.toString(i)));
 		}
+		//test part
+		UserVO temp = new UserVO();
+		temp.setId("kkm8031");
+		temp.setPwd("rudan93");
+		temp.setName("kkm");
+		return temp;		
 		//json return하는 방법 필요함 지금 제대로 리턴이 안됌. json 처리 해서 응답하는 것 추가할 것
-		return "test";
+		//AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(UserConfig.class);
+		//UserDAO udao = ctx.getBean("userDao", UserDAO.class);
+		
+		
 	}
 }
