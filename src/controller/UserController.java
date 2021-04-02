@@ -2,6 +2,7 @@ package controller;
 
 import user.*;
 import config.UserConfig;
+import config.SessConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -25,7 +26,7 @@ public class UserController {
 		return "test";
 	}
 	@PostMapping("/user/login")
-	public String login(HttpServletRequest request) {
+	public String login(Model model, HttpServletRequest request) {
 		String id = request.getParameter("user_id");
 		String pwd = request.getParameter("user_pw");
 		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(UserConfig.class);
@@ -37,6 +38,7 @@ public class UserController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
 			// format에 맞게 출력하기 위한 문자열 변환
 			String dTime = formatter.format(systemTime);
+			model.addAttribute("todayDate", dTime);
 			ret = "todayAppo";
 		} catch(LoginFailException e) {
 			ret = "loginX";
