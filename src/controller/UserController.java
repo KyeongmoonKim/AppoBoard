@@ -3,6 +3,9 @@ package controller;
 import user.*;
 import config.UserConfig;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.*;
@@ -30,7 +33,11 @@ public class UserController {
 		String ret = "";
 		try {
 			udao.login(id, pwd);
-			ret = "loginO";
+			long systemTime = System.currentTimeMillis();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+			// format에 맞게 출력하기 위한 문자열 변환
+			String dTime = formatter.format(systemTime);
+			ret = "todayAppo";
 		} catch(LoginFailException e) {
 			ret = "loginX";
 		}
