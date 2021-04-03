@@ -41,6 +41,7 @@ function sqlProcedure() {
 		$.ajax({
 	         url: '/AppoBoard/sql/test',
 	         dataType: 'json',
+	         contentType: "application/json; charset=utf-8",
 	         data: json_data,
 	         type: 'post',
 	         success: function(ret) { // check if available

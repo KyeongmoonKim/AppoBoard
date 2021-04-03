@@ -36,17 +36,17 @@ public class SqlController {
 			System.out.println(map.get("type"+Integer.toString(i)));
 		}
 		//test part
-		UserVO temp = new UserVO();
+		/*UserVO temp = new UserVO();
 		temp.setId("kkm8031");
 		temp.setPwd("rudan93");
 		temp.setName("kkm");
 		ArrayList<UserVO> ret = new ArrayList<UserVO>();
-		ret.add(temp);
-		return (List)ret;		
+		ret.add(temp);*/ 
 		//json return하는 방법 필요함 지금 제대로 리턴이 안됌. json 처리 해서 응답하는 것 추가할 것
 		//AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(UserConfig.class);
 		//UserDAO udao = ctx.getBean("userDao", UserDAO.class);
-		
+
+		return (List)ret;	
 		
 	}
 }

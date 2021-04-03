@@ -2,8 +2,8 @@
      pageEncoding="UTF-8"%>
      
 <%
-	request.setCharacterEncoding("utf-8"); 
-	String currDate = request.getParameter("date");
+	//request.setCharacterEncoding("utf-8"); 
+	//String currDate = request.getParameter("date");
 %>
 <!DOCTYPE html>
 <html>
@@ -56,11 +56,11 @@ function call_back_todayAppo(ret) {
 $(document).ready(function() {
 	var temp = new sqlProcedure();
 	console.log("${todayDate}");
-	temp.addParams("date", "${todayDate}"+"%", "string");
+	temp.addParams("date", "${todayDate}", "string");
  	(function() {
 	 var pollinterval = setInterval(function() {
 		 temp.asyncAjax("getDayAppo", call_back_todayAppo);
-	 }, 2000);
+	 }, 5000);
 	 temp.asyncAjax("getDayAppo", call_back_todayAppo);
  	})(); 
 });
@@ -75,7 +75,7 @@ $(document).ready(function() {
             </h2>
             <div class="ui large form">
                 <div class="ui stacked segment">
-                	<a href="/webShop/monthAppo.jsp?Date=<%=currDate%>"><button class="ui fluid large teal submit button">월별 일정보기</button></a><br>
+                	<a href="/webShop/monthAppo.jsp?Date=${todayDate}"><button class="ui fluid large teal submit button">월별 일정보기</button></a><br>
                     <a href="/webShop/makeAppo.jsp"><button class="ui fluid large teal submit button">일정 등록하기</button></a>
                     <table class="ui celled table" id="tav_table">
                         <thead>
