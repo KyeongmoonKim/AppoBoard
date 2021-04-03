@@ -56,7 +56,7 @@ function call_back_todayAppo(ret) {
 $(document).ready(function() {
 	var temp = new sqlProcedure();
 	console.log("${todayDate}");
-	temp.addParams("date", "${todayDate}", "string");
+	temp.addParams("date", "${todayDate}"+"%", "string");
  	(function() {
 	 var pollinterval = setInterval(function() {
 		 temp.asyncAjax("getDayAppo", call_back_todayAppo);
