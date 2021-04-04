@@ -35,4 +35,9 @@ public class UserConfig {
 	public UserDAO userDao(){
 		return new UserDAO(dataSource());
 	}
+	
+	@Bean
+	public SpDAO spDAO() {
+		return new SpDAO(dataSource());
+	}
 }
