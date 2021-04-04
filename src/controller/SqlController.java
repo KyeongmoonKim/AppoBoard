@@ -31,7 +31,6 @@ public class SqlController {
 			System.out.println(temp[0] + " : " + temp[1]);
 			map.put(temp[0], temp[1]);
 		}
-		int count = Integer.parseInt((String)map.get("counts"));
 		
 		/*System.out.println(map.get("sqlReq"));
 		for(int i = 0; i < count; i++) {
@@ -44,7 +43,11 @@ public class SqlController {
 		SpDAO spdao = ctx.getBean("spDAO", SpDAO.class);
 		Map<String, Object> result = spdao.exec(map);
 		ctx.close();
-
+		
+		//result set부터 이제 디버깅시작.
+		
+		
+		
 		//test part
 		/*UserVO temp = new UserVO();
 		temp.setId("kkm8031");
@@ -55,7 +58,11 @@ public class SqlController {
 		//json return하는 방법 필요함 지금 제대로 리턴이 안됌. json 처리 해서 응답하는 것 추가할 것
 		//AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(UserConfig.class);
 		//UserDAO udao = ctx.getBean("userDao", UserDAO.class);
-
+		
+		//test
+		/*System.out.println("SqlController test");
+		System.out.println(((SpVO)((List)result.get("MYCURSOR")).get(0)).getParam("ID"));*/
+		
 		return (List)result.get("MYCURSOR");	
 		
 	}

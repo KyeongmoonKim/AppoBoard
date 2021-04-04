@@ -52,13 +52,13 @@ public class SpDAO{
 			     ResultSetMetaData rsmd = rs.getMetaData();
 				 int columnCnt = rsmd.getColumnCount(); //컬럼의 수
 				 for(int i = 1; i <= columnCnt; i++) { //중요 오라클 컬럼인덱스 번호는 1부터시작
-					 System.out.println(rsmd.getColumnName(i)+", " + rs.getString(rsmd.getColumnName(i)));
+					 //System.out.println(rsmd.getColumnName(i)+", " + rs.getString(rsmd.getColumnName(i)));
 					 svo.setParam(rsmd.getColumnName(i), rs.getObject(rsmd.getColumnName(i))); //컬럼명에
 				 }
 				 return svo;
 			 }
 		 }));
 		 Map<String, Object> result = jdbcCall.execute(values);
-		 return result;
+		 return result; //문제 없음.
 	 }
 }
