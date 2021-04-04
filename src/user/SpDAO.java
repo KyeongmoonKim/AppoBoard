@@ -23,14 +23,14 @@ public class SpDAO{
 		 
 		 SimpleJdbcCall jdbcCall = new SimpleJdbcCall(ds).withProcedureName((String)params.get("sqlReq")); //프로시저 호출
 		 
-		 for(int i = 0; i < count; i++) { //타입에 따라 넣을거
+		 for(int i = 0; i < count; i++) { //정의한 타입에 따라 키랑 밸류 선언 및 저장
 			 String pKey = (String)params.get((String)params.get("key"+Integer.toString(i)));
 			 String pValue = (String)params.get((String)params.get("value"+Integer.toString(i)));
 			 String pType = (String)params.get((String)params.get("type"+Integer.toString(i)));
 			 if(pType.compareTo("int")==0) {
 				 jdbcCall.addDeclaredParameter(new SqlParameter(pKey, Types.INTEGER));
 				 values.put(pKey, Integer.getInteger(pValue));
-			 } else if(pType.compareTo("int")==0) {
+			 } else if(pType.compareTo("string")==0) {
 				 jdbcCall.addDeclaredParameter(new SqlParameter(pKey, Types.VARCHAR));
 				 values.put(pKey, pValue);
 			 } else {
@@ -39,26 +39,23 @@ public class SpDAO{
 			 }
 		 }
 		 
-		 jdbcCall.addDeclaredParameter("results_cursor", OracleTypes.CURSOR, new RowMapper<SpVO>() {
+		 jdbcCall.addDeclaredParameter(new SqlOutParameter("results_cursor", OracleTypes.CURSOR, new RowMapper<SpVO>() {//SpVO에 결과 받아 올 것.
 			 @Override
 			 public SpVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				 SpVO svo = new SpVO();
 				 for(int i = 0; i < count; i++) {
 					 String pKey = (String)params.get((String)params.get("key"+Integer.toString(i)));
 					 String pType = (String)params.get((String)params.get("type"+Integer.toString(i)));
-					 svo.setParam(pKey, value);
+					 if(pType.compareTo("int")==0) {
+						 svo.setParam(pKey, Integer.toString(rs.getInt(pKey)));
+					 } else if(pType.compareTo("string")==0) {
+						 svo.setParam(pKey, rs.getString(pKey));
+					 }
 				 }
+				 return svo;
 			 }
-		 });
+		 }));
 		 Map<String, Object> result = jdbcCall.execute(values);
-		    /*Map<String, Object> result =
-		        jdbcCall.withProcedureName((String)params.get("sqlReq"))
-		            .declareParameters(
-		            		for(int i = 0; i < n; i++) {
-		                    new SqlParameter("param1", Types.VARCHAR),
-		            		}
-		                    new SqlOutParameter("results_cursor", OracleTypes.CURSOR, new SomeRowMapper()))
-		            .execute("some string", "some other string");*/
+		 return result;
 	 }
-
 }

@@ -2,17 +2,17 @@ package user;
 import java.util.*;
 
 public class SpVO {
-	private Map<String, Object> map;
+	private Map<String, Object> param;
 	public SpVO() {
-		map = new HashMap<String, Object>();
+		param = new HashMap<String, Object>();
 	}
 
 	public void setParam(String key, Object value) {
-		map.put(key, value);
+		param.put(key, value);
 	}
 
 	public Object getParam(String key) {
-		Object ret = map.get(key);
+		Object ret = param.get(key);
 		if(ret == null) throw new Error("SpAppoVO getParam : key doesn't exist!");
 		else return ret;
 	}
