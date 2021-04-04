@@ -19,20 +19,20 @@ public class SpDAO{
 	 }
 	 
 	 public Map<String, Object> exec(Map<String, Object> params) {
-		 System.out.println("SpDAO called!");
+		 //System.out.println("SpDAO called!");
 		 int count = Integer.parseInt((String)params.get("counts")); //파라미터 개수
-		 System.out.println("count : " + Integer.toString(count));
+		 //System.out.println("count : " + Integer.toString(count));
 		 Map<String, Object> values = new HashMap<String, Object>(); //파라미터 밸류 저장
 		 
 		 SimpleJdbcCall jdbcCall = new SimpleJdbcCall(ds).withProcedureName((String)params.get("sqlReq")); //프로시저 호출
-		 System.out.println("req : " +(String)params.get("sqlReq"));
+		 //System.out.println("req : " +(String)params.get("sqlReq"));
 		 for(int i = 0; i < count; i++) { //정의한 타입에 따라 키랑 밸류 선언 및 저장
 			 String pKey = (String)params.get("key"+Integer.toString(i));
-			 System.out.println("pKey : "  + pKey);
+			 //System.out.println("pKey : "  + pKey);
 			 String pValue = (String)params.get("value"+Integer.toString(i));
-			 System.out.println("pValue : "  + pValue);
+			 //System.out.println("pValue : "  + pValue);
 			 String pType = (String)params.get("type"+Integer.toString(i));
-			 System.out.println("pType : "  + pType);
+			 //System.out.println("pType : "  + pType);
 			 if(pType.compareTo("int")==0) {
 				 jdbcCall.addDeclaredParameter(new SqlParameter(pKey, Types.INTEGER));
 				 values.put(pKey, Integer.getInteger(pValue));
@@ -40,11 +40,11 @@ public class SpDAO{
 				 jdbcCall.addDeclaredParameter(new SqlParameter(pKey, Types.VARCHAR));
 				 values.put(pKey, pValue);
 			 } else {
-				 System.out.println("not declared type in the spDAO:line28");
+				 //System.out.println("not declared type in the spDAO:line28");
 				 throw new Error("not declared type in the spDAO:line28");
 			 }
 		 }
-		 System.out.println(values.get("PDATE"));
+		 //System.out.println(values.get("PDATE"));
 		 jdbcCall.addDeclaredParameter(new SqlOutParameter("MYCURSOR", OracleTypes.CURSOR, new RowMapper<SpVO>() {//SpVO에 결과 받아 올 것.
 			 @Override
 			 public SpVO mapRow(ResultSet rs, int rowNum) throws SQLException {

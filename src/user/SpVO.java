@@ -16,4 +16,8 @@ public class SpVO {
 		if(ret == null) throw new Error("SpAppoVO getParam : key doesn't exist!");
 		else return ret;
 	}
+	
+	public Map<String, Object> retParam() {
+		return param;
+	}
 }

@@ -38,17 +38,18 @@
 <script src="/AppoBoard/myjs/sqlProcedure.js"></script>
 <script type="text/javascript">
 function call_back_todayAppo(ret) {
+    $( '#tav_list').empty();
 	for(var i in ret) {
 	  //alert(typeof(i)); //스트링임
-	  /*var tr = $("<tr></tr>").appendTo("#tav_list");
-	  $("<td></td>").text(ret[i]['id']).appendTo(tr);
+	  var tr = $("<tr></tr>").appendTo("#tav_list");
+	  $("<td></td>").text(ret[i]['ID']).appendTo(tr);
 	  //var temp1 = $("<a></a>").attr("href", "/webShop/windowAppo.jsp?id="+ret[i]['id']);
 	  //var temp2 = $("<td></td>").appendTo(tr);
-	  $("<a></a>").attr("href", "/webShop/windowAppo.jsp?id="+ret[i]['id']).text(ret[i]['title']).appendTo($("<td></td>").appendTo(tr));
+	  $("<a></a>").attr("href", "/webShop/windowAppo.jsp?id="+ret[i]['ID']).text(ret[i]['TITLE']).appendTo($("<td></td>").appendTo(tr));
 	  //$("<td></td>").text(ret[i]['title']).appendTo(tr);
-	  $("<td></td>").text(ret[i]['userId']).appendTo(tr);
-	  $("<td></td>").text(ret[i]['startDate']).appendTo(tr);
-	  $("<td></td>").text(ret[i]['endDate']).appendTo(tr);*/
+	  $("<td></td>").text(ret[i]['USERID']).appendTo(tr);
+	  $("<td></td>").text(ret[i]['STARTDATE']).appendTo(tr);
+	  $("<td></td>").text(ret[i]['ENDDATE']).appendTo(tr);
 	  console.log("success!!!!!");
  	}
 }
