@@ -56,12 +56,12 @@ function call_back_todayAppo(ret) {
 $(document).ready(function() {
 	var temp = new sqlProcedure();
 	console.log("${todayDate}");
-	temp.addParams("date", "${todayDate}", "string");
+	temp.addParams("PDATE", "${todayDate}", "string");
  	(function() {
 	 var pollinterval = setInterval(function() {
-		 temp.asyncAjax("getDayAppo", call_back_todayAppo);
+		 temp.asyncAjax("DTA", call_back_todayAppo);
 	 }, 5000);
-	 temp.asyncAjax("getDayAppo", call_back_todayAppo);
+	 temp.asyncAjax("DTA", call_back_todayAppo);
  	})(); 
 });
 </script>

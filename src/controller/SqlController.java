@@ -28,19 +28,20 @@ public class SqlController {
 		int paraNum = ParamEqus.length;
 		for(int i = 0; i < paraNum; i++) {
 			String[] temp  = ParamEqus[i].split("=");
+			System.out.println(temp[0] + " : " + temp[1]);
 			map.put(temp[0], temp[1]);
 		}
 		int count = Integer.parseInt((String)map.get("counts"));
 		
-		System.out.println(map.get("sqlReq"));
+		/*System.out.println(map.get("sqlReq"));
 		for(int i = 0; i < count; i++) {
 			System.out.println(map.get("key"+Integer.toString(i)));
 			System.out.println(map.get("value"+Integer.toString(i)));
 			System.out.println(map.get("type"+Integer.toString(i)));
-		}
+		}*/
 		
 		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(UserConfig.class);
-		SpDAO spdao = ctx.getBean("SpDao", SpDAO.class);
+		SpDAO spdao = ctx.getBean("spDAO", SpDAO.class);
 		Map<String, Object> result = spdao.exec(map);
 		ctx.close();
 
@@ -55,7 +56,7 @@ public class SqlController {
 		//AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(UserConfig.class);
 		//UserDAO udao = ctx.getBean("userDao", UserDAO.class);
 
-		return (List)result.get("results_cursor");	
+		return (List)result.get("MYCURSOR");	
 		
 	}
 }
