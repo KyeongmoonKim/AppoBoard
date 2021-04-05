@@ -77,7 +77,7 @@ $(document).ready(function() {
             <div class="ui large form">
                 <div class="ui stacked segment">
                 	<a href="/webShop/monthAppo.jsp?Date=${todayDate}"><button class="ui fluid large teal submit button">월별 일정보기</button></a><br>
-                    <a href="/webShop/makeAppo.jsp"><button class="ui fluid large teal submit button">일정 등록하기</button></a>
+                    <a href="/AppoBoard/user/makeAppo"><button class="ui fluid large teal submit button">일정 등록하기</button></a>
                     <table class="ui celled table" id="tav_table">
                         <thead>
                             <tr>
