@@ -53,6 +53,33 @@ function sqlProcedure() {
 	           console.log('Error!');
 	         }
 	       });
-		
+	}
+	this.syncAjax = function(sqlReq) {
+		var json_data = new Object();
+		json_data.sqlReq = sqlReq;
+		json_data.counts = String(this.count);
+		for(var i = 0; i < this.count; i++) {
+			var key0 = 'key'+String(i);
+			var key1 = 'value'+String(i);
+			var key2 = 'type'+String(i);
+			json_data[key0] = this.params[key0];
+			json_data[key1] = this.params[key1];
+			json_data[key2] = this.params[key2];
+		}
+		$.ajax({
+	         url: '/AppoBoard/sql/test',
+	         dataType: 'json',
+	         contentType: "application/json; charset=utf-8",
+	         data: json_data,
+	         type: 'post',
+	         async: false, //ret json으로
+	         success: function(ret) { // check if available
+	           //success
+	           return ret;
+	         },
+	         error: function() { // error logging
+	           console.log('Error!');
+	         }
+	       });
 	}
 }
