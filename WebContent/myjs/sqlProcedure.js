@@ -54,7 +54,38 @@ function sqlProcedure() {
 	         }
 	       });
 	}
-	this.syncAjax = function(sqlReq) {
+	
+	this.syncAjax = function(sqlReq, call_back) {//sqlReq는 스트링, call_back은 콜백함수, 이거써서  makeAppo 할꺼임
+		var json_data = new Object();
+		json_data.sqlReq = sqlReq;
+		json_data.counts = String(this.count);
+		for(var i = 0; i < this.count; i++) {
+			var key0 = 'key'+String(i);
+			var key1 = 'value'+String(i);
+			var key2 = 'type'+String(i);
+			json_data[key0] = this.params[key0];
+			json_data[key1] = this.params[key1];
+			json_data[key2] = this.params[key2];
+		}
+		$.ajax({
+	         url: '/AppoBoard/sql/test',
+	         dataType: 'json',
+	         contentType: "application/json; charset=utf-8",
+	         data: json_data,
+	         async: false, //ret json으로
+	         type: 'post',
+	         success: function(ret) { // check if available
+	           //success
+	           call_back(ret);
+	           //console.log(ret['userId']);
+	         },
+	         error: function() { // error logging
+	           console.log('Error!');
+	         }
+	       });
+	}
+	
+	this.syncRetAjax = function(sqlReq) {
 		var json_data = new Object();
 		json_data.sqlReq = sqlReq;
 		json_data.counts = String(this.count);

@@ -24,9 +24,12 @@ public class UserController {
 	public String loginMain() {
 		return "login";
 	}
-	@GetMapping("/sql")
-	public String sqlMain() {
-		return "test";
+	@GetMapping("/user/Main")
+	public String sqlMain(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("utf-8"); 
+		HttpSession session = request.getSession();
+		model.addAttribute("todayDate", session.getAttribute("currDate"));
+		return "todayAppo";
 	}
 	@PostMapping("/user/login")
 	public String login(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
@@ -45,6 +48,7 @@ public class UserController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
 			// format에 맞게 출력하기 위한 문자열 변환
 			String dTime = formatter.format(systemTime);
+			session.setAttribute("currDate", dTime);
 			model.addAttribute("todayDate", dTime);
 			ret = "todayAppo";
 		} catch(LoginFailException e) {

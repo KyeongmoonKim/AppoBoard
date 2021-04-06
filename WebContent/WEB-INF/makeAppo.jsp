@@ -41,20 +41,32 @@
 <script src="/AppoBoard/coco/jquery3.3.1.min.js"></script>
 <script src="/AppoBoard/myjs/sqlProcedure.js"></script>
 <script type="text/javascript">
+
+function call_back_makeAppo(ret) {
+	location.href='/AppoBoard/user/Main';
+}
+
 function fn_validate(){	
-    var frmLogin=document.frmLogin;
+	var temp = new sqlProcedure();
+	
+	var frmLogin=document.frmLogin;
     var title=frmLogin.title.value;
     var startDate=frmLogin.startDate.value;
     var endDate=frmLogin.endDate.value;
     var explanation=frmLogin.explanation.value;
+    
+	temp.addParams("PTITLE", title, "string"); //ID는 프로시저 안에서 EMP_SEQ.NEXTVAL하면됌.
+	temp.addParams("PEXPLANATION", explanation, "string");
+	temp.addParams("PSTARTDATE", startDate, "string");
+	temp.addParams("PENDDATE", endDate, "string")
+	temp.addParams("PUSERID", "<%=(String)session.getAttribute("userId")%>", "string");
     if((title.length==0 ||title=="") ||(startDate.length==0 ||startDate=="")||(endDate.length==0 ||endDate=="")){
-	 alert("제목과 날짜는 꼭 입력하셔야 합니다.");
+		alert("제목과 날짜는 꼭 입력하셔야 합니다.");
     }else{
-	frmLogin.method="post";
-	frmLogin.action="/webShop/user/makeAppo"; //directory 경로
-	frmLogin.submit();
+    	temp.syncAjax("MAKEAPPO", call_back_makeAppo);
     }
  }
+
 </script>
 </head>
 <body>
