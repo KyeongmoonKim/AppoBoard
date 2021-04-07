@@ -43,7 +43,7 @@
 <script type="text/javascript">
 
 function call_back_makeAppo(ret) {
-	location.href='/AppoBoard/user/Main';
+	location.href='/AppoBoard/user/Main?date='+document.frmLogin.startDate.value.substring(0,10);
 }
 
 function fn_validate(){	

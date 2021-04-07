@@ -25,11 +25,15 @@ public class UserController {
 		return "login";
 	}
 	@GetMapping("/user/Main")
-	public String sqlMain(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("utf-8"); 
-		HttpSession session = request.getSession();
-		model.addAttribute("todayDate", session.getAttribute("currDate"));
+	public String sqlMain(Model model, @RequestParam(value = "date", required = false) String date) throws UnsupportedEncodingException {
+		model.addAttribute("todayDate", date);
 		return "todayAppo";
+	}
+	@GetMapping("/user/Main2")
+	public String sqlMain2(HttpServletRequest request, @RequestParam(value = "Date", required = false) String date) throws UnsupportedEncodingException {
+		if(date.length()>10) date = date.substring(0, 10);
+		request.setAttribute("Date", date);
+		return "monthAppo";
 	}
 	@PostMapping("/user/login")
 	public String login(Model model, HttpServletRequest request) throws UnsupportedEncodingException {

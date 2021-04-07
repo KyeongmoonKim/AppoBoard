@@ -64,6 +64,7 @@ public class SqlController {
 		System.out.println(((SpVO)((List)result.get("MYCURSOR")).get(0)).getParam("ID"));*/
 		List<Object> realResult = new ArrayList<Object>();
 		int sz = ((List)result.get("MYCURSOR")).size();
+		response.setCharacterEncoding("utf-8");
 		for(int i = 0; i < sz; i++) realResult.add(((SpVO)((List)result.get("MYCURSOR")).get(i)).retParam());
 		return realResult;	
 		
