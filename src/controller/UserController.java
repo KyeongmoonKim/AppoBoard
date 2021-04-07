@@ -31,7 +31,7 @@ public class UserController {
 	}
 	@GetMapping("/user/Main2")
 	public String sqlMain2(HttpServletRequest request, @RequestParam(value = "Date", required = false) String date) throws UnsupportedEncodingException {
-		if(date.length()>10) date = date.substring(0, 10);
+		//if(date.length()>10) date = date.substring(0, 7);
 		request.setAttribute("Date", date);
 		return "monthAppo";
 	}

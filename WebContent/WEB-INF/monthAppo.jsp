@@ -13,6 +13,7 @@
 	String currDate = cal.currYM();
 	String prevDate = cal.prevYM();
 	String nextDate = cal.nextYM();
+	System.out.println(currDate);
 	//int dow = (cal.curr).get(Calendar.DAY_OF_WEEK); //1이 일요일, 7이 토요일
 	int maximumDay = (cal.curr).getActualMaximum(Calendar.DAY_OF_MONTH);
 	(cal.curr).set(Calendar.DATE, 1);
@@ -56,65 +57,27 @@
         }
 
 </style>
-
-<script src="/AppoBaord/coco/jquery3.3.1.min.js"></script>
+<script src="/AppoBoard/coco/jquery3.3.1.min.js"></script>
+<script src="/AppoBoard/myjs/sqlProcedure.js"></script>
 <script type="text/javascript">
 function call_back_monthAppo(ret) {
-	var size = Number(ret["size"]);
-	for(var i = 0; i < size; i++) { //일정에 해당하는 그거 비우고
-		var jsonKey = String(i);
-		var DateKey = ret[jsonKey]['key'];
-		var DateValue = ret[jsonKey]['value'];
+	for(var i in ret) { //일정에 해당하는 그거 비우고
+		var DateKey = ret[i]['MONTHDATE'];
+		var DateValue = ret[i]['CNT'];
 		var Day = String(Number(DateKey.substring(8, 10)));
 		$('#date_'+DateKey).empty();
 		$("<a></a>").attr("href", "/AppoBoard/user/Main?date="+DateKey).text(Day+"("+DateValue+")").appendTo('#date_'+DateKey);
  	}
 }
 $(document).ready(function() {
-	var dataJson = {
-        currMonth : "<%=currDate.substring(0, 7)%>"
-	};
-	function get_Appointment(){	//월별 카운트를 가지고올꺼임.
-		$.ajax({
-        	url: '/webShop/user/monthAppoAjax',
-        	dataType: 'json',
-        	data: dataJson,
-        	type: 'post',
-        	success: function(ret) { // check if available
-        		var size = Number(ret["size"]);
-        		for(var i = 0; i < size; i++) { //일정에 해당하는 그거 비우고
-        			var jsonKey = String(i);
-        			var DateKey = ret[jsonKey]['key'];
-        			var DateValue = ret[jsonKey]['value'];
-        			var Day = String(Number(DateKey.substring(8, 10)));
-        			$('#date_'+DateKey).empty();
-        			$("<a></a>").attr("href", "/AppoBoard/user/Main?date="+DateKey).text(Day+"("+DateValue+")").appendTo('#date_'+DateKey);
-        		}
-           //success
-        		/*$( '#tav_list').empty();
-           		for(var i in ret) {
-        	  	var tr = $("<tr></tr>").appendTo("#tav_list");
-        	  	$("<td></td>").text(ret[i]['id']).appendTo(tr);
-        	  	//var temp1 = $("<a></a>").attr("href", "/webShop/windowAppo.jsp?id="+ret[i]['id']);
-        	 	 //var temp2 = $("<td></td>").appendTo(tr);
-        	  	$("<a></a>").attr("href", "/webShop/windowAppo.jsp?id="+ret[i]['id']).text(ret[i]['title']).appendTo($("<td></td>").appendTo(tr));
-        	  	//$("<td></td>").text(ret[i]['title']).appendTo(tr);
-        	  	$("<td></td>").text(ret[i]['userId']).appendTo(tr);
-        	  	$("<td></td>").text(ret[i]['startDate']).appendTo(tr);
-        	  	$("<td></td>").text(ret[i]['endDate']).appendTo(tr);
-           		}*/
-        	},
-         	error: function() { // error logging
-           		console.log('Error!');
-         	}
-       	});
-	}
- 	(function() {
-	 	var pollinterval = setInterval(function() {
-		get_Appointment();
-	 	}, 2000);
-	 get_Appointment();
- 	})(); 
+	var temp = new sqlProcedure();
+	temp.addParams("PYM", "<%=currDate.substring(0, 7)%>", "string");
+	(function() {
+		 var pollinterval = setInterval(function() {
+			 temp.asyncAjax("MONTHAPPO", call_back_monthAppo);
+		 }, 5000);
+		 temp.asyncAjax("MONTHAPPO", call_back_monthAppo);
+	 	})();  
  
  });
 </script>
