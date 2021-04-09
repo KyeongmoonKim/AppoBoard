@@ -35,7 +35,7 @@ public class UserController {
 		request.setAttribute("Date", date);
 		return "monthAppo";
 	}
-	@GetMapping("/user/Main2")
+	@GetMapping("/user/Main3")
 	public String sqlMain3(HttpServletRequest request, @RequestParam(value = "id", required = false) String id) throws UnsupportedEncodingException {
 		//if(date.length()>10) date = date.substring(0, 7);
 		request.setAttribute("id", id);

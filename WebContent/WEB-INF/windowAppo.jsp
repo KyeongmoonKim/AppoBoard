@@ -20,7 +20,7 @@
 %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="./coco/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="/AppoBoard/coco/semantic.min.css">
 <style type="text/css">
         body {
             background-color: #DADADA;
@@ -49,80 +49,40 @@
         }
 
 </style>
-</head>
-<body>
-	<div class="ui middle aligned center aligned grid">
-        <div class="column">
-            <h2 class="ui teal image header">
-               일정 상세 보기
-            </h2>
-            <div class="ui large form">
-                <div class="ui stacked segment">
-                	<button class="ui fluid large teal submit button" id="btn_0">일정 삭제</button><br>
-                    <button class="ui fluid large teal submit button" id="btn_1">일정 수정</button>
-                    <table class="ui celled table" id="tav_table">
-                        <thead>
-                            <tr>
-                                <th id="th_1">일정</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tav_list">
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="ui error message"></div>
-
-            </div>
-            <a href="/webShop/todayAppoView2.jsp"><button class="ui fluid large teal submit button">뒤로가기</button></a>
-        </div>
-    </div>
-</body>
-
-<script src="./coco/jquery3.3.1.min.js"></script>
+<script src="/AppoBoard/coco/jquery3.3.1.min.js"></script>
+<script src="/AppoBoard/myjs/sqlProcedure.js"></script>
 <script type="text/javascript">
+function call_back_windowAppo(ret) {
+	$("#th_1").attr("colspan", 2);
+	var tr0 = $("<tr></tr>").appendTo("#tav_list"); // 제목 일정제목
+	$("<td></td>").text('일정명').appendTo(tr0);
+	$("<td></td>").text(ret[0]['TITLE']).appendTo(tr0);
+	var tr1 = $("<tr></tr>").appendTo("#tav_list"); // 작성자 이름(td태그 2개를 가짐)
+	$("<td></td>").text('작성자').appendTo(tr1);
+	$("<td></td>").text(ret[0]['USERID']).appendTo(tr1);
+	var tr2 = $("<tr></tr>").appendTo("#tav_list"); // 일정 시작일~일정 종료일
+	$("<td></td>").attr("colspan", 2).attr("text-align", "left").text(ret[0]['STARTDATE']+'~'+ret[0]['ENDDATE']).appendTo(tr2);
+	var tr3 = $("<tr></tr>").attr('height', '250px').appendTo("#tav_list"); //내용
+	$("<td></td>").attr("colspan", 2).text(ret[0]['EXPLANATION']).appendTo(tr3); 
+	//변수저장
+	param1 = ret[0]['ID'];
+	param2 = ret[0]['TITLE'];
+	param3 = ret[0]['STARTDATE'];
+	param4 = ret[0]['ENDDATE'];
+	param5 = ret[0]['EXPLANATION'];
+	param6 = ret[0]['USERID'];
+}
+
 $(document).ready(function() {
-	var dataJson = {
-        currId : "<%=currId%>"
-	};
+	var temp = new sqlProcedure();
+	temp.addParams("PID", "<%=currId%>", "integer");
 	var param1;
 	var param2;
 	var param3;
 	var param4;
 	var param5;
 	var param6;
-	function get_Appointment(){	
-		$.ajax({
-        url: '/webShop/user/getIdAppo',
-        dataType: 'json',
-        data: dataJson,
-        type: 'post',
-        success: function(ret) { // check if available, 결과값 예시 {"id" : "16","title" : "맘터","explnation" : "저녁","startDate" : "2021-03-06-20-20","endDate" : "2021-03-06-20-40","userId" : "kkm8031"}
-        	//$("#tav_table").attr('table-layout', 'fixed');
-        	$("#th_1").attr("colspan", 2);
-        	var tr0 = $("<tr></tr>").appendTo("#tav_list"); // 제목 일정제목
-        	$("<td></td>").text('일정명').appendTo(tr0);
-        	$("<td></td>").text(ret['title']).appendTo(tr0);
-        	var tr1 = $("<tr></tr>").appendTo("#tav_list"); // 작성자 이름(td태그 2개를 가짐)
-        	$("<td></td>").text('작성자').appendTo(tr1);
-        	$("<td></td>").text(ret['userId']).appendTo(tr1);
-        	var tr2 = $("<tr></tr>").appendTo("#tav_list"); // 일정 시작일~일정 종료일
-        	$("<td></td>").attr("colspan", 2).attr("text-align", "left").text(ret['startDate']+'~'+ret['endDate']).appendTo(tr2);
-        	var tr3 = $("<tr></tr>").attr('height', '250px').appendTo("#tav_list"); //내용
-        	$("<td></td>").attr("colspan", 2).text(ret['explanation']).appendTo(tr3); 
-        	//변수저장
-        	param1 = ret['id'];
-        	param2 = ret['title'];
-        	param3 = ret['startDate'];
-        	param4 = ret['endDate'];
-        	param5 = ret['explanation'];
-        	param6 = ret['userId'];
-         },
-         error: function() { // error logging
-           console.log('Error!');
-         }
-       });
- 	}
+	
 
 	$("#btn_0").click(function(){ //일정 삭제 버튼
 		$.ajax({
@@ -210,7 +170,39 @@ $(document).ready(function() {
 		});
 	});
 	
- 	get_Appointment();
+
+	temp.asyncAjax("IDAPPO", call_back_windowAppo);
  });
  </script>
+</head>
+<body>
+	<div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui teal image header">
+               일정 상세 보기
+            </h2>
+            <div class="ui large form">
+                <div class="ui stacked segment">
+                	<button class="ui fluid large teal submit button" id="btn_0">일정 삭제</button><br>
+                    <button class="ui fluid large teal submit button" id="btn_1">일정 수정</button>
+                    <table class="ui celled table" id="tav_table">
+                        <thead>
+                            <tr>
+                                <th id="th_1">일정</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tav_list">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="ui error message"></div>
+
+            </div>
+            <a href="/webShop/todayAppoView2.jsp"><button class="ui fluid large teal submit button">뒤로가기</button></a>
+        </div>
+    </div>
+</body>
+
+
 </html>

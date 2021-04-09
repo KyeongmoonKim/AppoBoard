@@ -33,9 +33,10 @@ public class SpDAO{
 			 //System.out.println("pValue : "  + pValue);
 			 String pType = (String)params.get("type"+Integer.toString(i));
 			 //System.out.println("pType : "  + pType);
-			 if(pType.compareTo("int")==0) {
+			 if(pType.compareTo("integer")==0) {
 				 jdbcCall.addDeclaredParameter(new SqlParameter(pKey, Types.INTEGER));
-				 values.put(pKey, Integer.getInteger(pValue));
+				 values.put(pKey, Integer.valueOf(pValue));
+				 //System.out.println(Integer.valueOf(pValue).intValue());
 			 } else if(pType.compareTo("string")==0) {
 				 jdbcCall.addDeclaredParameter(new SqlParameter(pKey, Types.VARCHAR));
 				 values.put(pKey, pValue);
@@ -51,6 +52,7 @@ public class SpDAO{
 				 SpVO svo = new SpVO();
 			     ResultSetMetaData rsmd = rs.getMetaData();
 				 int columnCnt = rsmd.getColumnCount(); //컬럼의 수
+				 //System.out.println("result!!");
 				 for(int i = 1; i <= columnCnt; i++) { //중요 오라클 컬럼인덱스 번호는 1부터시작
 					 //System.out.println(rsmd.getColumnName(i)+", " + rs.getString(rsmd.getColumnName(i)));
 					 svo.setParam(rsmd.getColumnName(i), rs.getObject(rsmd.getColumnName(i))); //컬럼명에

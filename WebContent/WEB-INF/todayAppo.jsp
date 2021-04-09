@@ -45,7 +45,7 @@ function call_back_todayAppo(ret) {
 	  $("<td></td>").text(ret[i]['ID']).appendTo(tr);
 	  //var temp1 = $("<a></a>").attr("href", "/webShop/windowAppo.jsp?id="+ret[i]['id']);
 	  //var temp2 = $("<td></td>").appendTo(tr);
-	  $("<a></a>").attr("href", "/AppoBoard/Main3?id="+ret[i]['ID']).text(ret[i]['TITLE']).appendTo($("<td></td>").appendTo(tr));
+	  $("<a></a>").attr("href", "/AppoBoard/user/Main3?id="+ret[i]['ID']).text(ret[i]['TITLE']).appendTo($("<td></td>").appendTo(tr));
 	  //$("<td></td>").text(ret[i]['title']).appendTo(tr);
 	  $("<td></td>").text(ret[i]['USERID']).appendTo(tr);
 	  $("<td></td>").text(ret[i]['STARTDATE']).appendTo(tr);
