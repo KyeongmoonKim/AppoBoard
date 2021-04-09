@@ -91,8 +91,8 @@ $(document).ready(function() {
             </h2>
             <div class="ui large form">
                 <div class="ui stacked segment">
-                	<a href="/webShop/monthAppo.jsp?Date=<%=prevDate%>"><button class="ui fluid large teal submit button">저번달</button></a><br>
-                    <a href="/webShop/monthAppo.jsp?Date=<%=nextDate%>"><button class="ui fluid large teal submit button">다음달</button></a>
+                	<a href="/AppoBoard/user/Main2?Date=<%=prevDate%>"><button class="ui fluid large teal submit button">저번달</button></a><br>
+                    <a href="/AppoBoard/user/Main2?Date=<%=nextDate%>"><button class="ui fluid large teal submit button">다음달</button></a>
                     <table class="ui celled table" id="tav_table">
                     	<thead>
                     		<tr>
