@@ -77,7 +77,8 @@ $(document).ready(function() {
 			 temp.asyncAjax("MONTHAPPO", call_back_monthAppo);
 		 }, 5000);
 		 temp.asyncAjax("MONTHAPPO", call_back_monthAppo);
-	 	})();  
+	 	})(); 
+	temp.asyncAjax("MONTHAPPO", call_back_monthAppo);
  
  });
 </script>

@@ -72,7 +72,9 @@ function call_back_windowAppo(ret) {
 	param5 = ret[0]['EXPLANATION'];
 	param6 = ret[0]['USERID'];
 }
-
+function call_back_deleteAppo(ret) {
+	location.href='/AppoBoard/user/Main?date='+param3.substring(0,10);
+}
 $(document).ready(function() {
 	var temp = new sqlProcedure();
 	temp.addParams("PID", "<%=currId%>", "integer");
@@ -85,32 +87,9 @@ $(document).ready(function() {
 	
 
 	$("#btn_0").click(function(){ //일정 삭제 버튼
-		$.ajax({
-			url: '/webShop/user/checkId',
-			dataType: 'text',
-			data: {reqValue : param6 },
-			type: 'get',
-			success: function(ret) {
-				if(ret=="true") {
-					var form0 = document.createElement('form');
-					var obj0 = document.createElement('input');
-					obj0.setAttribute('type', 'hidden');
-					obj0.setAttribute('name', 'id');
-					obj0.setAttribute('value', param1); //글 id 저장
-					form0.appendChild(obj0);
-					form0.setAttribute('method', 'post');
-					form0.setAttribute('action', "/webShop/user/deleteAppo");
-					document.body.appendChild(form0);
-					form0.submit();
-				} else {
-					alert("이 일정의 작성자가 아닙니다!")
-				}
-			},
-	        error: function() { // error logging
-	             console.log('Error!');
-	        }
-		});
-		
+		var temp_delete = new sqlProcedure();
+		temp_delete.addParams("PID", "<%=currId%>", "integer");
+		temp_delete.syncAjax("DELETEAPPO", call_back_deleteAppo);		
 	});
 	
 	$("#btn_1").click(function(){ //일정 수정 버튼
