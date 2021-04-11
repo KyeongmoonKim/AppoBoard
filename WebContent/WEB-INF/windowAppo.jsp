@@ -52,40 +52,40 @@
 <script src="/AppoBoard/coco/jquery3.3.1.min.js"></script>
 <script src="/AppoBoard/myjs/sqlProcedure.js"></script>
 <script type="text/javascript">
-function call_back_windowAppo(ret) {
-	$("#th_1").attr("colspan", 2);
-	var tr0 = $("<tr></tr>").appendTo("#tav_list"); // 제목 일정제목
-	$("<td></td>").text('일정명').appendTo(tr0);
-	$("<td></td>").text(ret[0]['TITLE']).appendTo(tr0);
-	var tr1 = $("<tr></tr>").appendTo("#tav_list"); // 작성자 이름(td태그 2개를 가짐)
-	$("<td></td>").text('작성자').appendTo(tr1);
-	$("<td></td>").text(ret[0]['USERID']).appendTo(tr1);
-	var tr2 = $("<tr></tr>").appendTo("#tav_list"); // 일정 시작일~일정 종료일
-	$("<td></td>").attr("colspan", 2).attr("text-align", "left").text(ret[0]['STARTDATE']+'~'+ret[0]['ENDDATE']).appendTo(tr2);
-	var tr3 = $("<tr></tr>").attr('height', '250px').appendTo("#tav_list"); //내용
-	$("<td></td>").attr("colspan", 2).text(ret[0]['EXPLANATION']).appendTo(tr3); 
-	//변수저장
-	param1 = ret[0]['ID'];
-	param2 = ret[0]['TITLE'];
-	param3 = ret[0]['STARTDATE'];
-	param4 = ret[0]['ENDDATE'];
-	param5 = ret[0]['EXPLANATION'];
-	param6 = ret[0]['USERID'];
-}
-function call_back_deleteAppo(ret) {
-	location.href='/AppoBoard/user/Main?date='+param3.substring(0,10);
-}
 $(document).ready(function() {
-	var temp = new sqlProcedure();
-	temp.addParams("PID", "<%=currId%>", "integer");
+
 	var param1;
 	var param2;
 	var param3;
 	var param4;
 	var param5;
 	var param6;
+	function call_back_windowAppo(ret) {
+		$("#th_1").attr("colspan", 2);
+		var tr0 = $("<tr></tr>").appendTo("#tav_list"); // 제목 일정제목
+		$("<td></td>").text('일정명').appendTo(tr0);
+		$("<td></td>").text(ret[0]['TITLE']).appendTo(tr0);
+		var tr1 = $("<tr></tr>").appendTo("#tav_list"); // 작성자 이름(td태그 2개를 가짐)
+		$("<td></td>").text('작성자').appendTo(tr1);
+		$("<td></td>").text(ret[0]['USERID']).appendTo(tr1);
+		var tr2 = $("<tr></tr>").appendTo("#tav_list"); // 일정 시작일~일정 종료일
+		$("<td></td>").attr("colspan", 2).attr("text-align", "left").text(ret[0]['STARTDATE']+'~'+ret[0]['ENDDATE']).appendTo(tr2);
+		var tr3 = $("<tr></tr>").attr('height', '250px').appendTo("#tav_list"); //내용
+		$("<td></td>").attr("colspan", 2).text(ret[0]['EXPLANATION']).appendTo(tr3); 
+		//변수저장
+		param1 = ret[0]['ID'];
+		param2 = ret[0]['TITLE'];
+		param3 = ret[0]['STARTDATE'];
+		param4 = ret[0]['ENDDATE'];
+		param5 = ret[0]['EXPLANATION'];
+		param6 = ret[0]['USERID'];
+	}
+	function call_back_deleteAppo(ret) {
+		location.href='/AppoBoard/user/Main?date='+param3.substring(0,10);
+	}
 	
-
+	var temp = new sqlProcedure();
+	temp.addParams("PID", "<%=currId%>", "integer");
 	$("#btn_0").click(function(){ //일정 삭제 버튼
 		var temp_delete = new sqlProcedure();
 		temp_delete.addParams("PID", "<%=currId%>", "integer");
@@ -93,60 +93,50 @@ $(document).ready(function() {
 	});
 	
 	$("#btn_1").click(function(){ //일정 수정 버튼
-		$.ajax({
-			url: '/webShop/user/checkId',
-			dataType: 'text',
-			data: {reqValue : param6 },
-			//contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-			type: 'get',
-			success: function(ret) {
-				if(ret=="true") {
-					var form = document.createElement('form'); //기존코드
-					var form_input1, form_input2, form_input3, form_input4, form_input5, form_input6
-					form_input1 = document.createElement('input');
-					form_input2 = document.createElement('input');
-					form_input3 = document.createElement('input');
-					form_input4 = document.createElement('input');
-					form_input5 = document.createElement('input');
-					form_input6 = document.createElement('input');
-					//alert(param2);
-					form_input1.setAttribute('type', 'hidden');
-					form_input1.setAttribute('name', 'id');
-					form_input1.setAttribute('value',  param1);
-					form_input2.setAttribute('type', 'hidden');
-					form_input2.setAttribute('name', 'title')
-					form_input2.setAttribute('value',  param2);
-					form_input3.setAttribute('type', 'hidden');
-					form_input3.setAttribute('name', 'startDate');
-					form_input3.setAttribute('value',  param3);
-					form_input4.setAttribute('type', 'hidden');
-					form_input4.setAttribute('name', 'endDate');
-					form_input4.setAttribute('value',  param4);
-					form_input5.setAttribute('type', 'hidden');
-					form_input5.setAttribute('name', 'explanation');
-					form_input5.setAttribute('value',  param5);
-					form_input6.setAttribute('type', 'hidden');
-					form_input6.setAttribute('name', 'userId');
-					form_input6.setAttribute('value',  param6);
-					
-					form.appendChild(form_input1);
-					form.appendChild(form_input2);
-					form.appendChild(form_input3);
-					form.appendChild(form_input4);
-					form.appendChild(form_input5);
-					form.appendChild(form_input6);
-					form.setAttribute('method', 'post');
-					form.setAttribute('action', "/webShop/reviseAppo.jsp");
-					document.body.appendChild(form);
-					form.submit();
-				} else {
-					alert("이 일정의 작성자가 아닙니다!")
-				}
-			},
-	        error: function() { // error logging
-	             console.log('Error!');
-	        }
-		});
+		console.log(param1);
+		console.log(param2);
+		console.log(param3);
+		console.log(param4);
+		console.log(param5);
+		console.log(param6);
+		var form = document.createElement('form'); //기존코드
+		var form_input1, form_input2, form_input3, form_input4, form_input5, form_input6
+		form_input1 = document.createElement('input');
+		form_input2 = document.createElement('input');
+		form_input3 = document.createElement('input');
+		form_input4 = document.createElement('input');
+		form_input5 = document.createElement('input');
+		form_input6 = document.createElement('input');
+		//alert(param2);
+		form_input1.setAttribute('type', 'hidden');
+		form_input1.setAttribute('name', 'id');
+		form_input1.setAttribute('value',  param1);
+		form_input2.setAttribute('type', 'hidden');
+		form_input2.setAttribute('name', 'title')
+		form_input2.setAttribute('value',  param2);
+		form_input3.setAttribute('type', 'hidden');
+		form_input3.setAttribute('name', 'startDate');
+		form_input3.setAttribute('value',  param3);
+		form_input4.setAttribute('type', 'hidden');
+		form_input4.setAttribute('name', 'endDate');
+		form_input4.setAttribute('value',  param4);
+		form_input5.setAttribute('type', 'hidden');
+		form_input5.setAttribute('name', 'explanation');
+		form_input5.setAttribute('value',  param5);
+		form_input6.setAttribute('type', 'hidden');
+		form_input6.setAttribute('name', 'userId');
+		form_input6.setAttribute('value',  param6);
+		
+		form.appendChild(form_input1);
+		form.appendChild(form_input2);
+		form.appendChild(form_input3);
+		form.appendChild(form_input4);
+		form.appendChild(form_input5);
+		form.appendChild(form_input6);
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', "/AppoBoard/user/ReviseAppo");
+		document.body.appendChild(form);
+		form.submit();
 	});
 	
 

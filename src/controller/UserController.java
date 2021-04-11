@@ -26,7 +26,15 @@ public class UserController {
 	}
 	@GetMapping("/user/Main")
 	public String sqlMain(Model model, @RequestParam(value = "date", required = false) String date) throws UnsupportedEncodingException {
-		model.addAttribute("todayDate", date);
+		if(date==null) {
+			long systemTime = System.currentTimeMillis();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+			// format에 맞게 출력하기 위한 문자열 변환
+			String dTime = formatter.format(systemTime);
+			model.addAttribute("todayDate", dTime);
+		} else {
+			model.addAttribute("todayDate", date);
+		}
 		return "todayAppo";
 	}
 	@GetMapping("/user/Main2")
@@ -40,6 +48,11 @@ public class UserController {
 		//if(date.length()>10) date = date.substring(0, 7);
 		request.setAttribute("id", id);
 		return "windowAppo";
+	}
+	@PostMapping("/user/ReviseAppo")
+	public String revise(HttpServletRequest request) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("utf-8");
+		return "reviseAppo"; //request가 그대로 옮겨짐. 굳이 model에 담을 필요없음
 	}
 	@PostMapping("/user/login")
 	public String login(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
